@@ -1,14 +1,8 @@
-
-![](/img/leaf-shapes.jpg)
-
 # Leaf Shapes (Python)
 
 Programatically identifying and classifying leaf shapes.
 
-Prerequisites:
-
-  + Anaconda
-  + Python 3.6
+:seedling: :leaves: :herb: :maple_leaf:
 
 ### Installation and Setup
 

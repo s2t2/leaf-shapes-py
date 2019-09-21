@@ -9,3 +9,5 @@
 ## Assets
 
   + [image of leaf shapes](https://image.freepik.com/free-vector/different-shapes-of-leaves_1308-2775.jpg)
+  + [image of leaf shapes (2)](http://earth-chronicles.com/wp-content/uploads/2017/09/5ceaf0ec.jpeg)
+  + [image of leaf shapes (3)](https://2.bp.blogspot.com/-MMyqlY1wZiE/TqW3bkMcmzI/AAAAAAAAiSQ/SDH-i3rMx8c/s1600/LeafShapes.jpg)
