@@ -3,6 +3,59 @@
 
 # Leaf Shapes (Python)
 
-Working with a team from the [Yale Peabody Museum of Natural History](http://peabody.yale.edu/) to programatically identify and classify leaf shapes.
+Programatically identifying and classifying leaf shapes.
 
-## [Contributing](CONTRIBUTING.md)
+Prerequisites:
+
+  + Anaconda
+  + Python 3.6
+
+### Installation and Setup
+
+Clone the repo and navigate there from the command-line:
+
+```sh
+git clone git@github.com:s2t2/leaf-shapes-py.git
+cd leaf-shapes-py
+```
+
+> NOTE: subsequent commands assume you're running them from the repo's root directory.
+
+Acquire the leaf images! Obtain a zip file of images from the [research team](http://peabody.yale.edu/). Unzip it and observe there are 11 subdirectories, each named after a specific tree family (e.g "Acer rubrum L"). Inside the each subdirectory are a number of images of preserved leaves. Not all the images are of leaves though - some look like laboratory slides. Finally, copy all the leaf family image subdirectories into the "img/families" directory in this repository.
+
+Setup a virtual environment:
+
+```sh
+conda create -n leaf-env-36 python=3.6
+conda activate leaf-env-36
+```
+
+> NOTE: subsequent commands assume you're running them from within the virtual environment.
+
+Install package dependencies:
+
+```sh
+pip install -r requirements.txt
+```
+
+Install the testing framework, "pytest", and any other development dependencies:
+
+```sh
+pip install -r dev-requirements.txt
+```
+
+## Usage
+
+Write image metadata to "data/images.csv":
+
+```sh
+python -m app.image_parser
+```
+
+## Testing
+
+Run tests:
+
+```sh
+pytest
+```
