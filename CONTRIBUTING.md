@@ -15,8 +15,8 @@ Obtain a zip file of images from the Peabody team, unzip it and copy the contain
 Setup a virtual environment:
 
 ```sh
-conda create -n leaf-env python=3.7
-conda activate leaf-env
+conda create -n leaf-env-36 python=3.6
+conda activate leaf-env-36
 ```
 
 ## Installation
