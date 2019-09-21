@@ -59,3 +59,12 @@ Run tests:
 ```sh
 pytest
 ```
+
+## Debugging
+
+While we're stuck in 3.6, use the following snippet in place of 3.7's `breakpoint()`:
+
+```py
+from pdb import set_trace as bpoint
+bpoint()
+```
