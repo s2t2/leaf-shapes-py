@@ -1,8 +1,6 @@
 # Leaf Shapes (Python)
 
-Programatically identifying and classifying leaf shapes.
-
-:seedling: :leaves: :herb: :maple_leaf:
+Programatically identifying and classifying leaf shapes. :seedling: :leaves: :herb: :maple_leaf:
 
 ### Installation and Setup
 
