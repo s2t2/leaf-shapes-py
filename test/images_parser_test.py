@@ -23,3 +23,8 @@ def test_parse_images():
     images = parse_images()
     assert len(images) == 894
     assert isinstance(images[0], Img)
+
+    # proxy for image model unit tests:
+    assert images[0].family_name == "Acer calcaratum Gagnep"
+    assert images[0].uuid == "943667afc0d69454f57c63cd713856c9b48aa0fcce956dad071ed1942e4d3690"
+    assert images[0].ext == "jpg"

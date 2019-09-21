@@ -1,10 +1,9 @@
 
 
 import os
-from pdb import set_trace as bpoint # we're stuck in 3.6 at the moment, otherwise we could use breakpoint()
+#from pdb import set_trace as breakpoint # shim for Python 3.6
 
-# import numpy as np
-# import pandas
+import pandas
 
 FAMILIES_DIRPATH = os.path.join(os.path.dirname(__file__), "..", "img", "families")
 
@@ -23,6 +22,16 @@ def parse_images():
         for img in fam.images:
             images.append(img)
     return images
+
+def image_records():
+    return [
+        {
+            "family": img.family_name,
+            "filename": img.filename,
+            "uuid": img.uuid,
+            "ext": img.ext
+        } for img in parse_images()
+    ]
 
 class Fam():
     def __init__(self, name):
@@ -53,32 +62,33 @@ class Img():
         return f"<Image '{self.family_name}' / '{self.name}'>"
 
     @property
+    def ext(self):
+        return self.filename.split(".")[-1] #> "jpg"
+
+    @property
     def uuid(self):
-        return self.filename.replace(".jpg","")
+        return self.filename.replace(f".{self.ext}", "")
 
     @property
     def filepath(self):
         return os.path.join(IMG_FAMILIES_DIRPATH, self.family_name, self.filename)
 
-    #def is_leaf(parameter_list):
-    #    return False
-    #
-    #def likelihood_of_leaf(parameter_list):
-    #    return 0.84
-
 if __name__ == "__main__":
 
     families = parse_families()
+    print("--------------------")
     print(f"TREE FAMILIES: ({len(families)})")
     for fam in families:
         print(" + ", fam.name.upper(), f"({len(fam.img_filenames)})")
 
     images = parse_images()
-    print(f"LEAF IMAGES ({len(images)}):")
-    for img in images:
-        # print(img.family.upper(), ">", img.filename)
-        print(" + ", img.family_name.upper(), img.uuid)
+    print("--------------------")
+    print(f"LEAF IMAGES ({len(images)})")
 
-    #breakpoint()
-    #bpoint()
-    # img.filepath()
+    # WRITE TO CSV
+
+    df = pandas.DataFrame(image_records())
+    CSV_FILEPATH = os.path.join(os.path.dirname(__file__), "..", "data", "images.csv")
+    df.to_csv(CSV_FILEPATH)
+    print("--------------------")
+    print("WRITING TO CSV...", os.path.abspath(CSV_FILEPATH))
