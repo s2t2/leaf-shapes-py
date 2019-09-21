@@ -1,3 +1,0 @@
-
-def message():
-    return "Hello"
