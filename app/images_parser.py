@@ -4,46 +4,45 @@ import os
 from pdb import set_trace as bpoint # we're stuck in 3.6 at the moment, otherwise we could use breakpoint()
 # import pandas
 
-IMG_FAMILIES_DIRPATH = os.path.join(os.path.dirname(__file__), "..", "img", "families")
+FAMILIES_DIRPATH = os.path.join(os.path.dirname(__file__), "..", "img", "families")
+
+def family_dirnames():
+    dirnames = os.listdir(FAMILIES_DIRPATH)
+    dirnames = [name for name in dirnames if name not in [".gitignore", ".DS_Store"]] # removes extraneous hidden files
+    dirnames.sort()
+    return dirnames
+
+def parse_families():
+    return [Fam(family_name) for family_name in family_dirnames()]
 
 def parse_images():
-    subdirs = os.listdir(IMG_FAMILIES_DIRPATH)
-    #subdirs.pop(subdirs.index(".gitignore"))
-    #subdirs.pop(subdirs.index(".DS_Store"))
-    #subdirs.pop(subdirs.index("leaf-shapes.jpg"))
-    subdirs = [s for s in subdirs if s not in [".gitignore", ".DS_Store"]]
-    subdirs.sort()
     images = []
-    for family_name in subdirs:
-        family_dirpath = os.path.join(IMG_FAMILIES_DIRPATH, family_name)
-        img_filenames = os.listdir(family_dirpath)
-        #print("--------------")
-        print(family_name.upper(), f"({len(img_filenames)})")
-        for img_filename in img_filenames:
-            #img = {"family": family_name, "filename": img_filename}
-            img = Img(family_name, img_filename)
-            print(os.path.isfile(img.filepath()))
+    for fam in parse_families():
+        for img_filename in fam.img_filenames():
+            img = Img(fam.name, img_filename)
             images.append(img)
     return images
 
-# class Family(): TODO
-    # def __init__(self, name):
-    #     self.name = name
+class Fam():
+    def __init__(self, name):
+        self.name = name
+
+    def dirpath(self):
+        return os.path.join(FAMILIES_DIRPATH, self.name)
+
+    def img_filenames(self):
+        return os.listdir(self.dirpath())
 
 class Img():
     def __init__(self, family_name, filename):
-        self.family = family_name
         self.family_name = family_name
         self.filename = filename
 
     def uuid(self):
         return self.filename.replace(".jpg","")
 
-    def family_dirpath(self):
-        return os.path.join(IMG_FAMILIES_DIRPATH, self.family_name)
-
     def filepath(self):
-        return os.path.join(self.family_dirpath(), self.filename)
+        return os.path.join(IMG_FAMILIES_DIRPATH, self.family_name, self.filename)
 
     #def is_leaf(parameter_list):
     #    return False
@@ -53,16 +52,16 @@ class Img():
 
 if __name__ == "__main__":
 
+    families = parse_families()
+    print(f"TREE FAMILIES: ({len(families)})")
+    for fam in families:
+        print(" + ", fam.name.upper(), f"({len(fam.img_filenames())})")
+
     images = parse_images()
-
-    families = list(set([img.family_name for img in images])) # todo: Family(img.family_name)
-
-    # images, families = parse_images()
-
-    print(len(images), "IMAGES:")
+    print(f"LEAF IMAGES ({len(images)}):")
     for img in images:
         # print(img.family.upper(), ">", img.filename)
-        print(img.uuid())
+        print(" + ", img.family_name.upper(), img.uuid())
 
     #breakpoint()
     #bpoint()
