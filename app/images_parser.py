@@ -27,9 +27,9 @@ def image_records():
     return [
         {
             "family": img.family_name,
-            "filename": img.filename,
+            #"filename": img.filename,
             "uuid": img.uuid,
-            "ext": img.ext
+            #"ext": img.ext
         } for img in parse_images()
     ]
 
@@ -87,8 +87,11 @@ if __name__ == "__main__":
 
     # WRITE TO CSV
 
-    df = pandas.DataFrame(image_records())
     CSV_FILEPATH = os.path.join(os.path.dirname(__file__), "..", "data", "images.csv")
+    df = pandas.DataFrame(image_records())
+    df.index.rename("id", inplace=True) # assigns a column label "id" for the index column
+    df.index += 1 # starts ids at 1 instead of 0
     df.to_csv(CSV_FILEPATH)
     print("--------------------")
     print("WRITING TO CSV...", os.path.abspath(CSV_FILEPATH))
+    print(df.head())
