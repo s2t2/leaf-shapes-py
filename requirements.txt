@@ -2,3 +2,5 @@
 pandas
 #keras
 #matplotlib
+
+python-dotenv

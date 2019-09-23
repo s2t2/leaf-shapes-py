@@ -1,10 +1,10 @@
 # Leaf Shapes (Python)
 
-Programatically identifying and classifying leaf shapes.
+Programatically identifying and classifying leaf images and shapes.
 
 :seedling: :leaves: :herb: :maple_leaf:
 
-### Installation and Setup
+## Repo Setup
 
 Clone the repo and navigate there from the command-line:
 
@@ -13,9 +13,39 @@ git clone git@github.com:s2t2/leaf-shapes-py.git
 cd leaf-shapes-py
 ```
 
-> NOTE: subsequent commands assume you're running them from the repo's root directory.
+## Image Acquisition
 
-Acquire the leaf images! Obtain a zip file of images from the [research team](http://peabody.yale.edu/). Unzip it and observe there are 11 subdirectories, each named after a specific tree family (e.g "Acer rubrum L"). Inside the each subdirectory are a number of images of preserved leaves. Not all the images are of leaves though - some look like laboratory slides. Finally, copy all the leaf family image subdirectories into the "img/families" directory in this repository.
+Obtain a zip file of images from the [research team](http://peabody.yale.edu/).
+
+Unzip it and observe there are 11 subdirectories, each named after a specific tree family (e.g "Acer rubrum L"). Inside the each subdirectory are a number of images of preserved leaves. Not all the images are of leaves though - some look like laboratory slides.
+
+Before proceeding, copy or move all of these subdirectories into the "img/import" directory in this repository.
+
+## Computer Vision Service Account
+
+Create an [Azure account](https://azure.microsoft.com/en-us/free/), then __________ to obtain a subscription key (i.e. `VISION_API_KEY`) and endpoint (i.e. `VISION_API_ENDPOINT`).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Environment Setup
 
 Setup a virtual environment:
 
@@ -37,6 +67,8 @@ Install the testing framework, "pytest", and any other development dependencies:
 ```sh
 pip install -r dev-requirements.txt
 ```
+
+Populate the contents of the ".env" file with `VISION_API_KEY` and `VISION_API_ENDPOINT`.
 
 ## Usage
 
