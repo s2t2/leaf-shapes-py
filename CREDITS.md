@@ -17,3 +17,5 @@
 
   + [Computer Vision API](https://azure.microsoft.com/en-us/services/cognitive-services/computer-vision/)
   + [Computer Vision API - Quickstart Guide](https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/quickstarts/python-analyze)
+  + [Analyze Image Endpoint Docs](https://eastus.dev.cognitive.microsoft.com/docs/services/56f91f2d778daf23d8ec6739/operations/56f91f2e778daf14a499e1fa/console)
+  + [Analyze Image From File](https://stackoverflow.com/questions/44126333/python-method-to-upload-an-image-to-microsoft-cognitive-vision-from-local-machin)
