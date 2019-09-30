@@ -1,9 +1,10 @@
 
 
 import os
-#from pdb import set_trace as breakpoint # shim for Python 3.6
-
+#from pdb import set_trace as breakpoint
 import pandas
+from requests.exceptions import HTTPError
+from app.image_classifier import leafiness_confidence
 
 IMG_IMPORTS_DIRPATH = os.path.join(os.path.dirname(__file__), "..", "img", "imports")
 
@@ -31,8 +32,30 @@ def image_records():
             #"filename": img.filename,
             "uuid": img.uuid,
             #"ext": img.ext
+            #"leafiness": img.leafiness
         } for img in parse_images()
     ]
+
+def image_records_with_classifications():
+    records = []
+    for img in parse_images()[1:9]:
+        try:
+            leafiness = leafiness_confidence(img.filepath)
+            print(img, leafiness)
+        except HTTPError as err:
+            #> requests.exceptions.HTTPError: 400 Client Error: Bad Request for url
+            print(img, err)
+            leafiness = None
+
+        records.append({
+            "family": img.family_name,
+            #"filename": img.filename,
+            "uuid": img.uuid,
+            #"ext": img.ext
+            "leafiness": leafiness
+        })
+    return records
+
 
 
 class Fam():
@@ -60,6 +83,7 @@ class Img():
         self.family_name = family_name
         self.filename = filename
         self.name = filename
+        #self.leafiness = None
 
     def __repr__(self):
         return f"<Image '{self.family_name}' / '{self.name}'>"
@@ -75,6 +99,10 @@ class Img():
     @property
     def filepath(self):
         return os.path.join(IMG_IMPORTS_DIRPATH, self.family_name, self.filename)
+
+    #@property
+    #def leafiness(self):
+    #    return leafiness_confidence(self.filepath) # TODO: how to cache this to prevent subsequent requests
 
 
 if __name__ == "__main__":
@@ -92,7 +120,7 @@ if __name__ == "__main__":
     # WRITE TO CSV
 
     CSV_FILEPATH = os.path.join(os.path.dirname(__file__), "..", "data", "images.csv")
-    df = pandas.DataFrame(image_records())
+    df = pandas.DataFrame(image_records_with_classifications())
     df.index.rename("id", inplace=True) # assigns a column label "id" for the index column
     df.index += 1 # starts ids at 1 instead of 0
     df.to_csv(CSV_FILEPATH)
