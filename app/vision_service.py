@@ -2,10 +2,15 @@
 
 import os
 import json
+# from pprint import pprint
+
+from dotenv import load_dotenv
 import requests
 
-API_KEY = os.getenv("VISION_API_KEY")
-API_ENDPOINT = os.getenv("VISION_API_ENDPOINT")
+load_dotenv()
+
+API_KEY = os.getenv("VISION_API_KEY", default="OOPS")
+API_ENDPOINT = os.getenv("VISION_API_ENDPOINT", default="OOPS")
 
 request_url = API_ENDPOINT + "vision/v2.0/analyze"
 headers = {'Ocp-Apim-Subscription-Key': API_KEY}

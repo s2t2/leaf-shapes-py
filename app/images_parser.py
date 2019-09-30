@@ -5,10 +5,11 @@ import os
 
 import pandas
 
-FAMILIES_DIRPATH = os.path.join(os.path.dirname(__file__), "..", "img", "families")
+IMG_IMPORTS_DIRPATH = os.path.join(os.path.dirname(__file__), "..", "img", "imports")
 
 def family_dirnames():
-    dirnames = os.listdir(FAMILIES_DIRPATH)
+    """Assumes all directories in the image import dir are named after a Tree family (e.g. "Acer rubrum L")"""
+    dirnames = os.listdir(IMG_IMPORTS_DIRPATH)
     dirnames = [name for name in dirnames if name not in [".gitignore", ".DS_Store"]] # removes extraneous hidden files
     dirnames.sort()
     return dirnames
@@ -33,6 +34,7 @@ def image_records():
         } for img in parse_images()
     ]
 
+
 class Fam():
     def __init__(self, name):
         self.name = name
@@ -42,7 +44,7 @@ class Fam():
 
     @property
     def dirpath(self):
-        return os.path.join(FAMILIES_DIRPATH, self.name)
+        return os.path.join(IMG_IMPORTS_DIRPATH, self.name)
 
     @property
     def img_filenames(self):
@@ -51,6 +53,7 @@ class Fam():
     @property
     def images(self):
         return [Img(self.name, img_filename) for img_filename in self.img_filenames]
+
 
 class Img():
     def __init__(self, family_name, filename):
@@ -71,7 +74,8 @@ class Img():
 
     @property
     def filepath(self):
-        return os.path.join(IMG_FAMILIES_DIRPATH, self.family_name, self.filename)
+        return os.path.join(IMG_IMPORTS_DIRPATH, self.family_name, self.filename)
+
 
 if __name__ == "__main__":
 

@@ -17,33 +17,15 @@ cd leaf-shapes-py
 
 Obtain a zip file of images from the [research team](http://peabody.yale.edu/).
 
-Unzip it and observe there are 11 subdirectories, each named after a specific tree family (e.g "Acer rubrum L"). Inside the each subdirectory are a number of images of preserved leaves. Not all the images are of leaves though - some look like laboratory slides.
+Unzip it and observe there are a number of subdirectories, each named after a specific tree family (e.g "Acer rubrum L"). Inside the each subdirectory are a number of images of preserved leaves. Not all the images are of leaves though - some look like laboratory slides.
 
-Before proceeding, copy or move all of these subdirectories into the "img/import" directory in this repository.
+Before proceeding, copy or move all of these subdirectories into the "img/imports" directory in this repository.
 
 ## Computer Vision Service Account
 
-Create an [Azure account](https://azure.microsoft.com/en-us/free/), then __________ to obtain a subscription key (i.e. `VISION_API_KEY`) and endpoint (i.e. `VISION_API_ENDPOINT`).
+Login to your [Azure account](https://azure.microsoft.com) or create a new one. Then [create a new "CognitiveServicesComputerVision" resource](https://portal.azure.com/#create/Microsoft.CognitiveServicesComputerVision).
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+After the resource has been configured and deployed, you should have access to the resource's API key and endpoint URL. Create a new file called ".env" in the root directory of this repository, and place inside the values for the `VISION_API_KEY` and `VISION_API_ENDPOINT`, respectively. See the ".env.example" file for an example.
 
 ## Environment Setup
 
@@ -68,8 +50,6 @@ Install the testing framework, "pytest", and any other development dependencies:
 pip install -r dev-requirements.txt
 ```
 
-Populate the contents of the ".env" file with `VISION_API_KEY` and `VISION_API_ENDPOINT`.
-
 ## Usage
 
 Write image metadata to "data/images.csv":
@@ -77,6 +57,17 @@ Write image metadata to "data/images.csv":
 ```sh
 python -m app.image_parser
 ```
+
+### Leaf Image Detection
+
+Separate leaf images from non-leaf images:
+
+```sh
+python -m app.image_classifier
+```
+
+This will separate all images in all subdirectories of "img/imports" into two categories (leaf, or non-leaf), and copy the images under corresponding subdirectories of either "img/exports/leaf" or "img/exports/nonleaf", as appropriate.
+
 
 ## Testing
 
