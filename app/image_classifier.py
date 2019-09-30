@@ -2,18 +2,7 @@
 from pdb import set_trace as breakpoint # shim for Python 3.6
 
 from app.images_parser import parse_images
-
-def image_tags(image_filepath):
-    # TODO:
-    # request to https://azure.microsoft.com/en-us/services/cognitive-services/computer-vision/
-    # parse the response's "tags" and return them...
-    tags = [
-        {"name": "text", "confidence": 0.9871882},
-        {"name": "book", "confidence": 0.9109231},
-        {"name": "leaf", "confidence": 0.883738041},
-        {"name": "plant", "confidence": 0.7578559}
-    ]
-    return tags
+from app.vision_service import image_tags
 
 LEAF_TAGS = ["leaf", "plant", "tree"] # if an image returns one of these tags, consider it to be a leaf
 
