@@ -4,7 +4,7 @@ import os
 #from pdb import set_trace as breakpoint
 import pandas
 from requests.exceptions import HTTPError
-from app.image_classifier import leafiness_confidence
+from app.image_classifier import is_leaf #,leafiness_confidence
 
 IMG_IMPORTS_DIRPATH = os.path.join(os.path.dirname(__file__), "..", "img", "imports")
 
@@ -40,19 +40,26 @@ def image_records_with_classifications():
     records = []
     for img in parse_images()[1:9]:
         try:
-            leafiness = leafiness_confidence(img.filepath)
-            print(img, leafiness)
+            #leafiness = leafiness_confidence(img.filepath)
+            #print(img, leafiness)
+            # tag-based approach was leading to some false negatives, and confidence scores are not available in all the ways we might know whether the image is a leaf
+
+            img_is_leaf = is_leaf(img.filepath)
+            print(img, img_is_leaf)
+
         except HTTPError as err:
             #> requests.exceptions.HTTPError: 400 Client Error: Bad Request for url
             print(img, err)
-            leafiness = None
+            #leafiness = None
+            img_is_leaf = None
 
         records.append({
             "family": img.family_name,
             #"filename": img.filename,
             "uuid": img.uuid,
             #"ext": img.ext
-            "leafiness": leafiness
+            #"leafiness": leafiness
+            "is_leaf": img_is_leaf
         })
     return records
 
@@ -103,6 +110,10 @@ class Img():
     #@property
     #def leafiness(self):
     #    return leafiness_confidence(self.filepath) # TODO: how to cache this to prevent subsequent requests
+
+    #@property
+    #def is_leaf(self):
+    #    return is_leaf(self.filepath) # TODO: how to cache this to prevent subsequent requests
 
 
 if __name__ == "__main__":

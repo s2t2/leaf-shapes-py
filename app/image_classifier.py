@@ -23,12 +23,20 @@ def leafiness_confidence(image_filepath):
 #    else:
 #        return False
 
+def is_leaf(image_filepath):
+    parsed_response = analyze_image(image_filepath)
+    response_text = str(parsed_response) # consider not parsing in the first place
+    for leaf_tag in LEAF_TAGS:
+        if leaf_tag in response_text:
+            return True
+    return False
+
 if __name__ == "__main__":
     image_filepath = os.path.join(os.path.dirname(__file__), "..", "img", "imports",
         "Acer calcaratum Gagnep", "3ef3ac88e7a2d68f02a59fea866998ef336ebd24cef1c37a9da322048b4a5449.jpg"
     )
     tags = analyze_image_tags(image_filepath) #> [{'name': 'text', 'confidence': 0.9591830372810364}, {'name': 'screenshot', 'confidence': 0.5648662447929382}]
-    breakpoint()
+    #breakpoint()
 
     #parsed_response = analyze_image(image_filepath)
     #>{
