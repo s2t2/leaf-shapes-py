@@ -2,3 +2,6 @@
 pandas
 #keras
 #matplotlib
+
+python-dotenv
+requests
